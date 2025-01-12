@@ -4,10 +4,8 @@ import (
 	"context"
 	prisma "db"
 	"net/http"
-	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/golang-jwt/jwt"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -47,16 +45,4 @@ func (handler *Handler) Login(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{"token": tokenString})
-}
-
-func generateJWT(userId string) (string, error) {
-	// Create a new token object, specifying signing method and the claims
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"sub": userId,
-		"exp": time.Now().Add(time.Hour * 72).Unix(), // Token expires in 72 hours
-		"iat": time.Now().Unix(),
-	})
-
-	// Sign and get the complete encoded token as a string
-	return token.SignedString(jwtSecretKey)
 }
