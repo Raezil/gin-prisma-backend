@@ -21,6 +21,13 @@ curl -X POST \
      http://localhost:8080/login
 ```
 
+Example response (if credentials are valid):
+```
+{
+  "token": "your_jwt_token_here"
+}
+```
+
 3. Profile (Protected Route) - For any protected endpoint like GET /api/profile, include the JWT in the Authorization header as a Bearer token:
 ```
 curl -X GET \
